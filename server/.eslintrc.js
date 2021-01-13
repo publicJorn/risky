@@ -18,26 +18,9 @@ module.exports = {
   },
 
   extends: [
+    '../.eslint-rules.js',
     'standard-with-typescript',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
-
-  rules: {
-    // generic
-    'no-console': ['warn', { allow: ['error', 'warn'] }],
-
-    // prettier
-    'prettier/prettier': [
-      'error',
-      {
-        tabWidth: 2,
-        useTabs: false,
-        semi: false,
-        singleQuote: true,
-        trailingComma: 'all',
-        arrowParens: 'always',
-      },
-    ],
-  },
 }

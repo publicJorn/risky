@@ -1,7 +1,7 @@
 <template>
   <div>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
     <button @click="rollDice">Roll dice</button>
   </div>
 </template>
@@ -13,7 +13,7 @@ import HelloWorld from './components/HelloWorld.vue'
 export default defineComponent({
   name: 'App',
 
-  data () {
+  data() {
     const ws = new WebSocket('ws://localhost:8081')
 
     // event emmited when connected
@@ -30,19 +30,19 @@ export default defineComponent({
     return { ws }
   },
 
-  unmounted () {
+  unmounted() {
     this.ws.close()
   },
 
   methods: {
-    rollDice () {
+    rollDice() {
       this.ws.send(JSON.stringify({ action: 'rollDice' }))
-    }
+    },
   },
 
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
 </script>
 

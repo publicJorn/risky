@@ -6,13 +6,25 @@ module.exports = {
   extends: [
     'plugin:vue/vue3-essential',
     '@vue/standard',
-    '@vue/typescript/recommended'
+    '@vue/typescript/recommended',
+    'plugin:prettier/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2020
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        tabWidth: 2,
+        useTabs: false,
+        semi: false,
+        singleQuote: true,
+        trailingComma: 'all',
+        arrowParens: 'always',
+      },
+    ],
   }
 }
