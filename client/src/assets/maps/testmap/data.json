@@ -1,0 +1,9 @@
+{
+  "id": "testmap",
+  "districts": {
+    "topleft": { "name": "topleft" },
+    "topright": { "name": "topright" },
+    "bottomleft": { "name": "bottomleft" },
+    "bottomright": { "name": "bottomright" }
+  }
+}

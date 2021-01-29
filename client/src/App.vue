@@ -1,14 +1,13 @@
 <template>
   <div>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-    <button @click="rollDice">Roll dice</button>
+    <Game />
+    <!-- <button @click="rollDice">Roll dice</button> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import Game from './pages/game/Game.vue'
 
 export default defineComponent({
   name: 'App',
@@ -41,18 +40,18 @@ export default defineComponent({
   },
 
   components: {
-    HelloWorld,
+    Game,
   },
 })
 </script>
 
-<style>
+<style lang="scss">
+@import './assets/styles/normalize.css';
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: $color-text;
 }
 </style>

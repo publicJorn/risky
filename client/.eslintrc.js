@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    
     'prettier/prettier': [
       'error',
       {
@@ -26,5 +27,15 @@ module.exports = {
         arrowParens: 'always',
       },
     ],
+
+    '@typescript-eslint/member-delimiter-style': ['error', {
+      multiline: {
+        delimiter: 'none',
+      },
+      singleline: {
+        delimiter: 'comma',
+        requireLast: false,
+      },
+    }]
   }
 }
