@@ -1,41 +1,13 @@
 <template>
   <div @click="handleClick" ref="svgWrapper">
-    <svg
-      viewBox="0 0 600 450"
-      xmlns="http://www.w3.org/2000/svg"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-miterlimit="1.5"
-    >
+    <svg v-bind="gameMap.attributes">
       <path
-        id="bottomleft"
-        fill="none"
-        stroke="#000"
-        stroke-width="2"
-        d="M0 200h350v250H0z"
-      />
-      <path
-        id="bottomright"
-        fill="none"
-        stroke="#000"
-        stroke-width="2"
-        d="M350 200h250v250H350z"
-      />
-      <path
-        id="topright"
-        d="M175 200h425V0H175v200"
-        fill="none"
-        stroke="#000"
-        stroke-width="2"
-      />
-      <path
-        id="topleft"
-        d="M0 200h175V0H0v200"
-        fill="none"
-        stroke="#000"
-        stroke-width="2"
+        v-for="path in gameMap.children"
+        :key="path.attributes.id"
+        v-bind="path.attributes"
+        :class="{
+          selected: isSelected(path.attributes.id),
+        }"
       />
     </svg>
   </div>
@@ -43,14 +15,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { DistrictId } from '../Game.vue'
-
-const selectedClass = 'selected-district'
+import gameMap from '@/assets/maps/testmap/map.json'
+import { SelectedDistrict } from '../Game.vue'
 
 const Map = defineComponent({
   props: {
-    selectedDistrictId: {
-      type: String as PropType<DistrictId>,
+    selectedDistrict: {
+      type: Object as PropType<SelectedDistrict>,
     },
     selectDistrictById: {
       type: Function as PropType<(id: string) => void>,
@@ -58,21 +29,8 @@ const Map = defineComponent({
     },
   },
 
-  created() {
-    this.$watch(
-      'selectedDistrictId',
-      (newId: DistrictId, oldId: DistrictId) => {
-        if (newId) {
-          const selectEl = document.querySelector(`#${newId}`) as HTMLElement
-          selectEl.classList.add(selectedClass)
-        }
-
-        if (oldId) {
-          const unselectEl = document.querySelector(`#${oldId}`) as HTMLElement
-          unselectEl.classList.remove(selectedClass)
-        }
-      },
-    )
+  data() {
+    return { gameMap }
   },
 
   methods: {
@@ -82,7 +40,15 @@ const Map = defineComponent({
 
       if (!id) return
 
-      this.selectDistrictById(this.selectedDistrictId === id ? '' : id)
+      if (this.selectedDistrict && this.selectedDistrict.id === id) {
+        this.selectDistrictById('')
+      } else {
+        this.selectDistrictById(id)
+      }
+    },
+
+    isSelected(id: string): boolean {
+      return this.selectedDistrict?.id === id
     },
   },
 })
@@ -97,7 +63,7 @@ svg {
   pointer-events: all;
 }
 
-.selected-district {
+path.selected {
   fill: lime;
   stroke: green;
 }

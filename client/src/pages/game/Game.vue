@@ -5,12 +5,12 @@
       <aside class="chat">chat</aside>
       <main class="map">
         <GameMap
-          :selectedDistrictId="selectedDistrictId"
+          :selectedDistrict="selectedDistrict"
           :selectDistrictById="selectDistrictById"
         />
       </main>
       <aside class="actions">
-        <Actions :selectedDistrict="selectedDistrict" />
+        <Actions :selectedDistrict="selectedDistrict" :setTroops="setTroops" />
       </aside>
     </div>
   </div>
@@ -22,10 +22,14 @@ import mapData from '@/assets/maps/testmap/data.json'
 import GameMap from './Map/Map.vue'
 import Actions from './Actions/Actions.vue'
 
-export type DistrictId = keyof typeof mapData.districts | ''
-export type DistrictData = {
+export type MapDistrictData = {
   name: string
+  borders: string[]
+}
+export type DistrictData = MapDistrictData & {
+  id: string
   isSelected: boolean
+  troops: number
 }
 export type SelectedDistrict = null | DistrictData
 
@@ -36,10 +40,18 @@ const Game = defineComponent({
   },
 
   setup() {
-    const districts = ref(new Map())
-    Object.entries(mapData.districts).forEach(([id, data]) => {
-      districts.value.set(id, { ...data, isSelected: false })
-    })
+    const districtLoader: [string, DistrictData][] = Object.entries(
+      mapData.districts,
+    ).map(([id, data]) => [
+      id,
+      {
+        ...data,
+        id,
+        isSelected: false,
+        troops: 0,
+      },
+    ])
+    const districts = ref(new Map<string, DistrictData>(districtLoader))
 
     const selectedDistrictId = ref('')
 
@@ -55,8 +67,13 @@ const Game = defineComponent({
   },
 
   methods: {
-    selectDistrictById(id: DistrictId) {
+    selectDistrictById(id: string) {
       this.selectedDistrictId = id
+    },
+
+    setTroops(nr: number) {
+      const district = this.districts.get(this.selectedDistrictId)
+      if (district) district.troops = Math.max(nr, 0)
     },
   },
 })
