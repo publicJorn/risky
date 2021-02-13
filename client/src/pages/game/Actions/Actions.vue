@@ -6,6 +6,7 @@
       Troops:
       <input
         type="number"
+        :min="0"
         :value="selectedDistrict.troops"
         @change="handleChangeTroops"
       />
@@ -33,6 +34,7 @@ const Actions = defineComponent({
       if (evt.target) {
         const tgt = evt.target as HTMLInputElement
         this.setTroops(Number(tgt.value))
+        this.$forceUpdate() // See setTroops method why...
       }
     },
   },

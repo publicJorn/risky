@@ -1,6 +1,6 @@
 <template>
   <div @click="handleClick" ref="svgWrapper">
-    <svg v-bind="gameMap.attributes">
+    <svg v-bind="gameMap.attributes" class="map">
       <path
         v-for="path in gameMap.children"
         :key="path.attributes.id"
@@ -9,6 +9,7 @@
           selected: isSelected(path.attributes.id),
         }"
       />
+      <SoldierNumber :nr="2" />
     </svg>
   </div>
 </template>
@@ -17,8 +18,15 @@
 import { defineComponent, PropType } from 'vue'
 import gameMap from '@/assets/maps/testmap/map.json'
 import { SelectedDistrict } from '../Game.vue'
+// import District from './District.vue'
+import SoldierNumber from './SoldierNumber.vue'
 
 const Map = defineComponent({
+  components: {
+    // District,
+    SoldierNumber,
+  },
+
   props: {
     selectedDistrict: {
       type: Object as PropType<SelectedDistrict>,
@@ -57,7 +65,7 @@ export default Map
 </script>
 
 <style scoped lang="scss">
-svg {
+.map {
   width: 100%;
   height: 100%;
   pointer-events: all;

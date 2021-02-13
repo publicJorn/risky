@@ -40,18 +40,19 @@ const Game = defineComponent({
   },
 
   setup() {
-    const districtLoader: [string, DistrictData][] = Object.entries(
-      mapData.districts,
-    ).map(([id, data]) => [
-      id,
-      {
-        ...data,
-        id,
-        isSelected: false,
-        troops: 0,
-      },
-    ])
-    const districts = ref(new Map<string, DistrictData>(districtLoader))
+    const districts = ref(
+      new Map<string, DistrictData>(
+        Object.entries(mapData.districts).map(([id, data]) => [
+          id,
+          {
+            ...data,
+            id,
+            isSelected: false,
+            troops: 0,
+          },
+        ]),
+      ),
+    )
 
     const selectedDistrictId = ref('')
 
@@ -73,7 +74,11 @@ const Game = defineComponent({
 
     setTroops(nr: number) {
       const district = this.districts.get(this.selectedDistrictId)
-      if (district) district.troops = Math.max(nr, 0)
+      if (!district) return
+
+      // If starting value was 0, it won't trigger reactivity, so if child is
+      // input it needs to forceUpdate()!
+      district.troops = Math.max(nr, 0)
     },
   },
 })
