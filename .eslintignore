@@ -1,0 +1,6 @@
+.vscode
+_design
+@types
+build
+node_modules
+razzle.config.js

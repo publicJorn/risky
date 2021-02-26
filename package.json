@@ -1,9 +1,57 @@
 {
   "name": "risky",
-  "version": "0.0.1",
-  "description": "",
+  "version": "1.0.0",
   "author": "frontrain",
-  "license": "GNU GPLv3",
-  "scripts": {},
-  "devDependencies": {}
+  "license": "GPL-3.0",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "scripts": {
+    "start:tsc": "tsc -b -w --preserveWatchOutput",
+    "start": "yarn start:tsc & razzle start",
+    "build": "tsc -b && razzle build",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js",
+    "lint": "eslint src/**",
+    "svg": "svgo -i=src/assets/maps/testmap/map.svg -o=- --cleanupIDs=false | svgson --camelcase --pretty > src/assets/maps/testmap/map.json"
+  },
+  "dependencies": {
+    "@types/ws": "7.4.0",
+    "express": "4.17.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-router-dom": "5.2.0",
+    "styled-components": "5.2.1",
+    "ws": "7.4.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.11.9",
+    "@testing-library/react": "11.2.5",
+    "@testing-library/user-event": "12.7.1",
+    "@types/express": "4.17.11",
+    "@types/jest": "26.0.20",
+    "@types/node": "14.14.30",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.1",
+    "@types/react-router-dom": "5.1.7",
+    "@types/styled-components": "5.1.7",
+    "@types/webpack-env": "1.16.0",
+    "@typescript-eslint/eslint-plugin": "4.15.1",
+    "@typescript-eslint/parser": "4.15.1",
+    "eslint": "7.20.0",
+    "eslint-config-prettier": "7.2.0",
+    "eslint-config-standard": "16.0.2",
+    "eslint-config-standard-with-typescript": "20.0.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "3.3.1",
+    "eslint-plugin-promise": "4.3.1",
+    "eslint-plugin-standard": "5.0.0",
+    "normalize.css": "8.0.1",
+    "prettier": "2.2.1",
+    "razzle": "3.3.13",
+    "svgo": "2.1.0",
+    "svgson": "4.1.0",
+    "typescript": "4.1.5"
+  }
 }
