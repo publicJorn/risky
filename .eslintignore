@@ -4,3 +4,4 @@ _design
 build
 node_modules
 razzle.config.js
+cli/

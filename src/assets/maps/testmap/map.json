@@ -1,0 +1,57 @@
+{
+    "name": "svg",
+    "type": "element",
+    "value": "",
+    "attributes": {
+        "viewBox": "0 0 600 450",
+        "xmlns": "http://www.w3.org/2000/svg",
+        "xmlSpace": "preserve",
+        "style": "fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5"
+    },
+    "children": [
+        {
+            "name": "path",
+            "type": "element",
+            "value": "",
+            "attributes": {
+                "id": "bottomleft",
+                "style": "fill:none;stroke:#000;stroke-width:2px",
+                "d": "M0 200h350v250H0z"
+            },
+            "children": []
+        },
+        {
+            "name": "path",
+            "type": "element",
+            "value": "",
+            "attributes": {
+                "id": "bottomright",
+                "style": "fill:none;stroke:#000;stroke-width:2px",
+                "d": "M350 200h250v250H350z"
+            },
+            "children": []
+        },
+        {
+            "name": "path",
+            "type": "element",
+            "value": "",
+            "attributes": {
+                "id": "topright",
+                "d": "M175 200h425V0H175v200",
+                "style": "fill:none;stroke:#000;stroke-width:2px"
+            },
+            "children": []
+        },
+        {
+            "name": "path",
+            "type": "element",
+            "value": "",
+            "attributes": {
+                "id": "topleft",
+                "d": "M0 200h175V0H0v200",
+                "style": "fill:none;stroke:#000;stroke-width:2px"
+            },
+            "children": []
+        }
+    ]
+}

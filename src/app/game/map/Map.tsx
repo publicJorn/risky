@@ -1,17 +1,15 @@
+import { useRef, ReactSVGElement } from 'react'
+
 import mapSvg from 'assets/maps/testmap/map.json'
-
-const dashToCamel = (str: string): string =>
-  str.replace(/-(.)/g, (m, s) => s.toUpperCase())
-
-const allDashToCamel = (strings: string[]): string[] => strings.map(dashToCamel)
 
 // type Props = {
 //   path: object
 // }
 
-function Map(): JSX.Element {
+function Map(): ReactSVGElement {
+  const ref = useRef()
   return (
-    <svg {...allDashToCamel(mapSvg.attributes)}>
+    <svg {...mapSvg.attributes} ref={ref}>
       {mapSvg.children.map((path) => (
         <path
           key={path.attributes.id}
