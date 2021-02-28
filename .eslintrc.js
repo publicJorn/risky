@@ -23,7 +23,7 @@ module.exports = {
 
   extends: [
     'standard-with-typescript',
-    'prettier/@typescript-eslint',
+    'prettier',
     'plugin:prettier/recommended',
   ],
 

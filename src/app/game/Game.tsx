@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import useGameState from './gameState'
 import GameMap from './map/Map'
 import {
   Scene,
@@ -9,6 +11,12 @@ import {
 } from './game.styles'
 
 const Game = (): JSX.Element => {
+  const { districts, initDistricts } = useGameState()
+
+  useEffect(() => initDistricts(), [])
+
+  console.log(districts)
+
   return (
     <Scene>
       <Header>header</Header>
