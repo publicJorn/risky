@@ -1,22 +1,13 @@
-import { useRef, ReactSVGElement } from 'react'
-
 import mapSvg from 'assets/maps/testmap/map.json'
+import DistrictPaths from './Districts'
+import { Svg } from './map.styles'
 
-// type Props = {
-//   path: object
-// }
-
-function Map(): ReactSVGElement {
-  const ref = useRef()
+function Map(): JSX.Element {
+  const { style, ...attrs } = mapSvg.attributes
   return (
-    <svg {...mapSvg.attributes} ref={ref}>
-      {mapSvg.children.map((path) => (
-        <path
-          key={path.attributes.id}
-          // isSelected={isSelected(path.attributes.id)}
-        />
-      ))}
-    </svg>
+    <Svg {...attrs} svgStyle={style}>
+      <DistrictPaths paths={mapSvg.children} />
+    </Svg>
   )
 }
 
