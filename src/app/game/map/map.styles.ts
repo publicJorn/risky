@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Svg = styled.svg`
+export const MapSvg = styled.svg`
   ${(p: { svgStyle: string }) => p.svgStyle};
   width: 100%;
   height: 100%;
@@ -21,3 +21,5 @@ export const Path = styled.path`
       stroke: green;
     `}
 `
+
+export const SoldierSvg = styled.svg``

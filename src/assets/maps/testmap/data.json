@@ -1,9 +1,9 @@
 {
-  "id": "testmap",
+  "mapId": "testmap",
   "districts": {
-    "topleft": { "name": "topleft", "borders": ["topright", "bottomleft"] },
-    "topright": { "name": "topright", "borders": ["bottomright", "topleft"] },
-    "bottomleft": { "name": "bottomleft", "borders": ["topleft", "bottomright"] },
-    "bottomright": { "name": "bottomright", "borders": ["bottomleft", "topright"] }
+    "topleft": { "name": "topleft name", "borders": ["topright", "bottomleft"] },
+    "topright": { "name": "topright name", "borders": ["bottomright", "topleft"] },
+    "bottomleft": { "name": "bottomleft name", "borders": ["topleft", "bottomright"] },
+    "bottomright": { "name": "bottomright name", "borders": ["bottomleft", "topright"] }
   }
 }

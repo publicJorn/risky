@@ -45,6 +45,13 @@ module.exports = {
 
     'react/react-in-jsx-scope': 'off',
 
-    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+    // Interface for models, types for the rest
+    '@typescript-eslint/consistent-type-definitions': 'off',
+    '@typescript-eslint/strict-boolean-expressions': [
+      'error',
+      {
+        allowNullableObject: true,
+      },
+    ],
   },
 }

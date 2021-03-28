@@ -1,13 +1,17 @@
 import mapSvg from 'assets/maps/testmap/map.json'
-import DistrictPaths from './Districts'
-import { Svg } from './map.styles'
+import SoldierDef from './SoldierDef'
+import Districts from './Districts'
+import { MapSvg } from './map.styles'
 
 function Map(): JSX.Element {
   const { style, ...attrs } = mapSvg.attributes
   return (
-    <Svg {...attrs} svgStyle={style}>
-      <DistrictPaths paths={mapSvg.children} />
-    </Svg>
+    <>
+      <SoldierDef />
+      <MapSvg {...attrs} svgStyle={style}>
+        <Districts paths={mapSvg.children} />
+      </MapSvg>
+    </>
   )
 }
 
