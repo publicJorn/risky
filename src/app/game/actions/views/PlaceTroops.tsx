@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react'
 import { observer } from 'mobx-react-lite'
-import { IDistrictModel } from 'app/game/DistrictModel'
+import { IDistrictModel } from 'app/game/store/DistrictModel'
 
 import styled from 'styled-components'
 
@@ -16,6 +16,7 @@ type Props = WithChildren<{
   district: IDistrictModel
 }>
 
+// TODO: When "use reserves" all at once
 function PlaceTroops({ district }: Props): JSX.Element {
   const handleTroopChange = (evt: ChangeEvent<HTMLInputElement>): void => {
     district.setTroops(Number(evt.currentTarget.value))

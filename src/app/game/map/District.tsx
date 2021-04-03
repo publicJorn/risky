@@ -1,12 +1,12 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { observer } from 'mobx-react-lite'
+import { useDistrictStore } from 'app/game/store'
 import { DistrictPath } from './MapType'
 import { Path } from './map.styles'
 import SoldierNumber from './SoldierNumber'
-import { IDistrictModel } from '../DistrictModel'
-import { GameContext } from '../Game'
+import { IDistrictModel } from '../store/DistrictModel'
 
-type Props = WithChildren<{
+type Props = React.PropsWithChildren<{
   path: DistrictPath
   district: IDistrictModel
 }>
@@ -15,7 +15,7 @@ function District({ path, district }: Props): JSX.Element {
   const refPath = useRef<SVGPathElement>(null)
   const [dimensions, setDimensions] = useState<SVGRect | undefined>(undefined)
 
-  const { selectDistrict } = useContext(GameContext)
+  const { selectDistrict } = useDistrictStore()
   const { d, style } = path.attributes
 
   const handleClick = (): void => {

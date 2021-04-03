@@ -1,12 +1,11 @@
-import { useContext } from 'react'
+import { useDistrictStore } from 'app/game/store'
 import { DistrictPath } from './MapType'
 import District from './District'
-import { GameContext } from '../Game'
 
 type Props = WithChildren<{ paths: DistrictPath[] }>
 
 function DistrictPaths({ paths }: Props): JSX.Element {
-  const { districts } = useContext(GameContext)
+  const { districts } = useDistrictStore()
 
   return (
     <>

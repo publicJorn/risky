@@ -1,27 +1,26 @@
-import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import styled from 'styled-components'
-import { GameContext } from '../Game'
+import { useDistrictStore } from 'app/game/store'
 import PlaceTroops from './views/PlaceTroops'
-
-const Wrapper = styled.div`
-  padding: ${(p) => p.theme.spacing05};
-`
+import DevSelectPhase from './DevSelectPhase'
+import { Wrapper } from './actions.styles'
 
 function Actions(): JSX.Element {
-  const { selectedDistrict } = useContext(GameContext)
+  const { selectedDistrict } = useDistrictStore()
 
-  if (!selectedDistrict)
+  if (!selectedDistrict) {
     return (
       <Wrapper>
-        <p>Select district</p>
+        <p>Select a district</p>
+        <DevSelectPhase />
       </Wrapper>
     )
+  }
 
   // TODO: turn === 'me' && stage === 'place troops' && district.owner === 'me'
   return (
     <Wrapper>
       <PlaceTroops district={selectedDistrict} />
+      <DevSelectPhase />
     </Wrapper>
   )
 }

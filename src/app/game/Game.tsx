@@ -1,5 +1,4 @@
-import { createContext, useContext } from 'react'
-import createGameStore from './GameStore'
+import { GameContext, useStore } from './store'
 import GameMap from './map/Map'
 import Actions from './actions/Actions'
 import {
@@ -11,17 +10,15 @@ import {
   ActionArea,
 } from './game.styles'
 
-export const GameContext = createContext(createGameStore())
-
 const Game = (): JSX.Element => {
-  const store = useContext(GameContext)
+  const store = useStore()
 
   return (
     <GameContext.Provider value={store}>
       <Scene>
         <Header>header</Header>
         <Display>
-          <ChatArea>chat</ChatArea>
+          <ChatArea>players turn & chat</ChatArea>
           <MapArea>
             <GameMap />
           </MapArea>

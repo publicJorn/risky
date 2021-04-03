@@ -16,6 +16,6 @@ const DistrictModel = types
     },
   }))
 
-export interface IDistrictModel extends Instance<typeof DistrictModel> {}
-
 export default DistrictModel
+
+export interface IDistrictModel extends Instance<typeof DistrictModel> {}
