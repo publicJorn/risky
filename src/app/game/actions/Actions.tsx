@@ -1,25 +1,39 @@
 import { observer } from 'mobx-react-lite'
-import { useDistrictStore } from 'app/game/store'
-import PlaceTroops from './views/PlaceTroops'
+import styled from 'styled-components'
+import { useGameStore, useDistrictStore, Phase } from 'app/game/store'
+import PhaseIndicator from './views/PhaseIndicator'
+import DistrictInfo from './views/DistrictInfo'
+import Recruit from './views/Recruit'
+import Move from './views/Move'
 import DevSelectPhase from './DevSelectPhase'
-import { Wrapper } from './actions.styles'
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: ${(p) => p.theme.spacing05};
+`
 
 function Actions(): JSX.Element {
-  const { selectedDistrict } = useDistrictStore()
+  const { localPhase } = useGameStore()
+  const { primaryDistrict, secondaryDistrict } = useDistrictStore()
 
-  if (!selectedDistrict) {
-    return (
-      <Wrapper>
-        <p>Select a district</p>
-        <DevSelectPhase />
-      </Wrapper>
-    )
+  const renderAction = {
+    [Phase.Wait]: <p>Wait phase</p>,
+    [Phase.Recruit]: <Recruit district={primaryDistrict} />,
+    [Phase.Attack]: <p>Attack phase</p>,
+    [Phase.Move]: <Move />,
+    [Phase.Defend]: <p>Defend phase</p>,
   }
 
-  // TODO: turn === 'me' && stage === 'place troops' && district.owner === 'me'
+  // TODO: district.owner === 'me'
   return (
     <Wrapper>
-      <PlaceTroops district={selectedDistrict} />
+      <div>
+        <PhaseIndicator phase={localPhase} />
+        <DistrictInfo {...primaryDistrict} />
+        {renderAction[localPhase]}
+      </div>
       <DevSelectPhase />
     </Wrapper>
   )

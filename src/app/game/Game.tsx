@@ -1,4 +1,4 @@
-import { GameContext, useStore } from './store'
+import { GameContext, useGameStore } from './store'
 import GameMap from './map/Map'
 import Actions from './actions/Actions'
 import {
@@ -11,7 +11,7 @@ import {
 } from './game.styles'
 
 const Game = (): JSX.Element => {
-  const store = useStore()
+  const store = useGameStore()
 
   return (
     <GameContext.Provider value={store}>

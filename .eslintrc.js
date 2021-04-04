@@ -47,6 +47,7 @@ module.exports = {
 
     // Interface for models, types for the rest
     '@typescript-eslint/consistent-type-definitions': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/strict-boolean-expressions': [
       'error',
       {

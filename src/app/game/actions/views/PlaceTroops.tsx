@@ -4,10 +4,6 @@ import { IDistrictModel } from 'app/game/store/DistrictModel'
 
 import styled from 'styled-components'
 
-const Name = styled.p`
-  font-weight: bold;
-`
-
 const Label = styled.label`
   display: block;
 `
@@ -24,10 +20,10 @@ function PlaceTroops({ district }: Props): JSX.Element {
 
   return (
     <>
-      <Name>{district.name}</Name>
-      <Label htmlFor="troops">Troops</Label>
+      <Label htmlFor="troopsinput">Troops</Label>
       <input
         type="number"
+        id="troopsinput"
         name="troops"
         value={district.troops}
         onChange={handleTroopChange}

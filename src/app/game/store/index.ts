@@ -19,7 +19,10 @@ export enum Phase {
 const GameStore = types
   .model({
     districtStore: DistrictStore,
-    localPhase: Phase.Recruit,
+    localPhase: types.optional(
+      types.enumeration<Phase>(Object.values(Phase)),
+      Phase.Recruit,
+    ),
   })
 
   .views((self) => ({}))
@@ -59,9 +62,9 @@ const createGameStore = (): IGameStore => {
 
 export const GameContext = createContext(createGameStore())
 
-export const useStore = (): IGameStore => useContext(GameContext)
+export const useGameStore = (): IGameStore => useContext(GameContext)
 
 export const useDistrictStore = (): IDistrictStore => {
-  const { districtStore } = useStore()
+  const { districtStore } = useGameStore()
   return districtStore
 }

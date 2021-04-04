@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { useDistrictStore } from 'app/game/store'
+import { useDistrictStore, useGameStore } from 'app/game/store'
 import { DistrictPath } from './MapType'
 import { Path } from './map.styles'
 import SoldierNumber from './SoldierNumber'
@@ -15,11 +15,12 @@ function District({ path, district }: Props): JSX.Element {
   const refPath = useRef<SVGPathElement>(null)
   const [dimensions, setDimensions] = useState<SVGRect | undefined>(undefined)
 
+  const gameStore = useGameStore()
   const { selectDistrict } = useDistrictStore()
   const { d, style } = path.attributes
 
   const handleClick = (): void => {
-    selectDistrict(district.isSelected ? '' : district.id)
+    selectDistrict(district.id, district.selected)
   }
 
   useEffect(() => {
@@ -33,7 +34,8 @@ function District({ path, district }: Props): JSX.Element {
         d={d}
         svgStyle={style}
         onClick={handleClick}
-        isSelected={district.isSelected}
+        selected={district.selected}
+        phase={gameStore.localPhase}
       />
       {dimensions && (
         <SoldierNumber nr={district.troops} districtDimensions={dimensions} />

@@ -28,6 +28,12 @@ const server = express()
         <App />
       </StaticRouter>,
     )
+
+    // Chrome disable shared array buffer warning: SharedArrayBuffer
+    // But then needs workaround for loading sourcemaps
+    // res.set('Cross-Origin-Embedder-Policy', 'require-corp')
+    // res.set('Cross-Origin-Opener-Policy', 'same-origin')
+
     res.send(
       `<!doctype html>
     <html lang="">

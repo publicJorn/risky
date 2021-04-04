@@ -1,5 +1,7 @@
-import { types, Instance } from 'mobx-state-tree'
-import DistrictModel from './DistrictModel'
+import { autorun } from 'mobx'
+import { types, Instance, getParent } from 'mobx-state-tree'
+import { Phase, IGameStore } from './index'
+import DistrictModel, { Selected } from './DistrictModel'
 
 const DistrictStore = types
   .model({
@@ -8,20 +10,74 @@ const DistrictStore = types
   })
 
   .views((self) => ({
-    get selectedDistrict() {
+    get parent(): IGameStore {
+      return getParent(self)
+    },
+
+    get primaryDistrict() {
       return [...self.districts.values()].find(
-        (district) => district.isSelected,
+        (district) => district.selected === Selected.Primary,
+      )
+    },
+
+    get secondaryDistrict() {
+      return [...self.districts.values()].find(
+        (district) => district.selected === Selected.Secondary,
       )
     },
   }))
 
   .actions((self) => ({
-    selectDistrict(id: string) {
-      const prev = self.selectedDistrict
-      if (prev) prev.isSelected = false
+    unselectAll() {
+      if (self.primaryDistrict) self.primaryDistrict.selected = Selected.None
+      if (self.secondaryDistrict)
+        self.secondaryDistrict.selected = Selected.None
+    },
+
+    selectPrimary(id: string) {
+      const prev = self.primaryDistrict
+      if (prev) prev.selected = Selected.None
+
+      if (prev?.id === id) return
 
       const next = self.districts.get(id)
-      if (next) next.isSelected = true
+      if (next) next.selected = Selected.Primary
+    },
+
+    selectSecondary(id: string) {
+      const prev = self.secondaryDistrict
+      if (prev) prev.selected = Selected.None
+
+      const next = self.districts.get(id)
+      if (next) next.selected = Selected.Secondary
+    },
+  }))
+
+  .actions((self) => ({
+    afterAttach() {
+      autorun(() => self.parent.localPhase && self.unselectAll())
+    },
+
+    selectDistrict(id: string, selectedAs: number) {
+      if (selectedAs && self.secondaryDistrict) {
+        self.unselectAll()
+        return
+      }
+
+      const isCorrectPhase = [Phase.Attack, Phase.Move].includes(
+        self.parent.localPhase,
+      )
+
+      if (
+        isCorrectPhase &&
+        self.primaryDistrict &&
+        self.primaryDistrict.id !== id
+      ) {
+        self.selectSecondary(id)
+        return
+      }
+
+      self.selectPrimary(id)
     },
   }))
 
