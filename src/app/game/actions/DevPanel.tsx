@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
-import { useGameStore, Phase } from 'app/game/store'
+import { useGameStore, Phase, useDistrictStore } from 'app/game/store'
+import React from 'react'
 
 const DevSelect = styled.div`
   flex: 1 1 auto;
@@ -12,17 +13,27 @@ const DevSelect = styled.div`
 const phases = Object.keys(Phase)
 const disabledPhases = [Phase.Wait, Phase.Attack, Phase.Defend] as string[]
 
-function DevSelectPhase(): JSX.Element {
-  const { devSelectPhase, localPhase } = useGameStore()
+function DevPanel(): JSX.Element {
+  const { selectPhase: devSelectPhase, phase: localPhase } = useGameStore()
+  const { districts } = useDistrictStore()
 
   const handleChange = (evt: React.ChangeEvent<HTMLSelectElement>): void => {
     devSelectPhase(evt.target.value as Phase)
   }
 
+  const setTroops = (): void => {
+    const troopAllocations = [1, 5, 2, 1]
+    let i = 0
+    districts.forEach((district) => {
+      district.setTroops(troopAllocations[i++])
+    })
+  }
+
   return (
     <DevSelect>
-      <label htmlFor="devSelectPhase">Select phase:</label>
+      <button onClick={setTroops}>Mock set troops</button>
       <br />
+      <label htmlFor="devSelectPhase">Select phase:</label>
       <select id="devSelectPhase" onChange={handleChange} value={localPhase}>
         {phases.map((phase) => (
           <option key={phase} disabled={disabledPhases.includes(phase)}>
@@ -34,4 +45,4 @@ function DevSelectPhase(): JSX.Element {
   )
 }
 
-export default observer(DevSelectPhase)
+export default observer(DevPanel)

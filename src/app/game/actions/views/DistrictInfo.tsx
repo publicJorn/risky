@@ -1,9 +1,11 @@
 import styled from 'styled-components'
+import TroopsDelta from 'app/game/components/TroopsDelta'
 
 type Props = {
   name?: string
   owner?: number
   troops?: number
+  troopsDelta?: number
 }
 
 const Wrapper = styled.div`
@@ -17,19 +19,19 @@ const List = styled.ul`
 
 const Item = styled.li`
   font-size: ${(p) => p.theme.fontSizeSmall};
-  line-height: 1.31;
+  line-height: 1.15rem;
 
   &:first-child {
     margin-bottom: 0.5rem;
     font-size: ${(p) => p.theme.fontSizeMedium};
-    line-height: 1.15;
   }
 `
 
 function DistrictInfo({
   name = '',
-  owner = 0,
-  troops = 0,
+  owner,
+  troops,
+  troopsDelta,
 }: Props): JSX.Element {
   return (
     <Wrapper>
@@ -37,7 +39,9 @@ function DistrictInfo({
         <List>
           <Item>{name}</Item>
           <Item>Owned by {owner}</Item>
-          <Item>Troops: {troops}</Item>
+          <Item>
+            Troops: {troops} <TroopsDelta n={troopsDelta} />
+          </Item>
         </List>
       ) : (
         <p>Select a district...</p>

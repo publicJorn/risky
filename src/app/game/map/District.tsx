@@ -35,7 +35,7 @@ function District({ path, district }: Props): JSX.Element {
         svgStyle={style}
         onClick={handleClick}
         selected={district.selected}
-        phase={gameStore.localPhase}
+        phase={gameStore.phase}
       />
       {dimensions && (
         <SoldierNumber nr={district.troops} districtDimensions={dimensions} />

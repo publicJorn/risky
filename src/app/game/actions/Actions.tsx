@@ -5,7 +5,7 @@ import PhaseIndicator from './views/PhaseIndicator'
 import DistrictInfo from './views/DistrictInfo'
 import Recruit from './views/Recruit'
 import Move from './views/Move'
-import DevSelectPhase from './DevSelectPhase'
+import DevPanel from './DevPanel'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -15,14 +15,16 @@ export const Wrapper = styled.div`
 `
 
 function Actions(): JSX.Element {
-  const { localPhase } = useGameStore()
+  const { phase: localPhase } = useGameStore()
   const { primaryDistrict, secondaryDistrict } = useDistrictStore()
 
   const renderAction = {
     [Phase.Wait]: <p>Wait phase</p>,
     [Phase.Recruit]: <Recruit district={primaryDistrict} />,
     [Phase.Attack]: <p>Attack phase</p>,
-    [Phase.Move]: <Move />,
+    [Phase.Move]: (
+      <Move fromDistrict={primaryDistrict} toDistrict={secondaryDistrict} />
+    ),
     [Phase.Defend]: <p>Defend phase</p>,
   }
 
@@ -34,7 +36,7 @@ function Actions(): JSX.Element {
         <DistrictInfo {...primaryDistrict} />
         {renderAction[localPhase]}
       </div>
-      <DevSelectPhase />
+      <DevPanel />
     </Wrapper>
   )
 }

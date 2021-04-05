@@ -19,17 +19,22 @@ export enum Phase {
 const GameStore = types
   .model({
     districtStore: DistrictStore,
-    localPhase: types.optional(
+    phase: types.optional(
       types.enumeration<Phase>(Object.values(Phase)),
       Phase.Recruit,
     ),
+    troopsDeltaPool: 3,
   })
 
   .views((self) => ({}))
 
   .actions((self) => ({
-    devSelectPhase(phase: Phase) {
-      self.localPhase = phase
+    setTroopsDeltaPool(n: number) {
+      self.troopsDeltaPool = n
+    },
+
+    selectPhase(phase: Phase) {
+      self.phase = phase
     },
   }))
 

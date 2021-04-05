@@ -55,7 +55,7 @@ const DistrictStore = types
 
   .actions((self) => ({
     afterAttach() {
-      autorun(() => self.parent.localPhase && self.unselectAll())
+      autorun(() => self.parent.phase && self.unselectAll())
     },
 
     selectDistrict(id: string, selectedAs: number) {
@@ -65,7 +65,7 @@ const DistrictStore = types
       }
 
       const isCorrectPhase = [Phase.Attack, Phase.Move].includes(
-        self.parent.localPhase,
+        self.parent.phase,
       )
 
       if (

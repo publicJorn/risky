@@ -1,35 +1,51 @@
-import { ChangeEvent } from 'react'
-import { observer } from 'mobx-react-lite'
-import { IDistrictModel } from 'app/game/store/DistrictModel'
+import { useRef, useState, useEffect, ChangeEvent } from 'react'
+// import { useDebouncedCallback } from 'use-debounce'
 
 import styled from 'styled-components'
+
+const Field = styled.div`
+  display: block;
+`
 
 const Label = styled.label`
   display: block;
 `
 
 type Props = WithChildren<{
-  district: IDistrictModel
+  min: number
+  max: number
+  value: number
+  onTroopsChange: (n: number) => void
 }>
 
-// TODO: When "use reserves" all at once
-function PlaceTroops({ district }: Props): JSX.Element {
+function PlaceTroops({ min, max, value, onTroopsChange }: Props): JSX.Element {
+  const refTroops = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    refTroops.current?.focus()
+  }, [onTroopsChange])
+
   const handleTroopChange = (evt: ChangeEvent<HTMLInputElement>): void => {
-    district.setTroops(Number(evt.currentTarget.value))
+    const n = Number(evt.currentTarget.value)
+    onTroopsChange(n)
   }
 
   return (
-    <>
-      <Label htmlFor="troopsinput">Troops</Label>
+    <Field>
+      <Label htmlFor="troops">Troops: {value}</Label>
       <input
-        type="number"
-        id="troopsinput"
+        ref={refTroops}
+        type="range"
+        min={min}
+        max={max}
+        id="troops"
         name="troops"
-        value={district.troops}
+        value={value}
+        disabled={!max}
         onChange={handleTroopChange}
       />
-    </>
+    </Field>
   )
 }
 
-export default observer(PlaceTroops)
+export default PlaceTroops

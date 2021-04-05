@@ -14,11 +14,16 @@ const DistrictModel = types
     selected: Selected.None,
     owner: 0,
     troops: 0,
+    troopsDelta: 0,
   })
 
   .actions((self) => ({
-    setTroops(nr: number) {
-      self.troops = nr
+    setTroops(n: number) {
+      self.troops = n
+    },
+
+    setTroopsDelta(n: number) {
+      self.troopsDelta = n
     },
   }))
 
