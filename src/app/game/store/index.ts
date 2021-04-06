@@ -1,4 +1,5 @@
 import { types, Instance, castToSnapshot } from 'mobx-state-tree'
+import makeInspectable from 'mobx-devtools-mst'
 import { createContext, useContext } from 'react'
 import mapData from 'assets/maps/testmap/data.json'
 import DistrictStore, { IDistrictStore } from './DistrictStore'
@@ -60,9 +61,12 @@ const createGameStore = (): IGameStore => {
     districts,
   })
 
-  return GameStore.create({
+  const store = GameStore.create({
     districtStore: castToSnapshot(districtStore),
   })
+
+  makeInspectable(store)
+  return store
 }
 
 export const GameContext = createContext(createGameStore())
