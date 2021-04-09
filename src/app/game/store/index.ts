@@ -1,4 +1,5 @@
 import { types, Instance, castToSnapshot } from 'mobx-state-tree'
+import { autorun } from 'mobx'
 import makeInspectable from 'mobx-devtools-mst'
 import { createContext, useContext } from 'react'
 import mapData from 'assets/maps/testmap/data.json'
@@ -18,13 +19,13 @@ export enum Phase {
 // }
 
 const GameStore = types
-  .model({
+  .model('GameStore', {
     districtStore: DistrictStore,
     phase: types.optional(
       types.enumeration<Phase>(Object.values(Phase)),
-      Phase.Recruit,
+      Phase.Wait,
     ),
-    troopsDeltaPool: 3,
+    troopsDeltaPool: 0,
   })
 
   .views((self) => ({}))
@@ -34,8 +35,60 @@ const GameStore = types
       self.troopsDeltaPool = n
     },
 
+    initializeWait() {
+      console.log('wait')
+    },
+
+    initializeRecruit() {
+      console.log('recruit')
+      self.troopsDeltaPool = 3
+      self.phase = Phase.Recruit
+    },
+
+    initializeAttack() {
+      console.log('attack')
+    },
+
+    initializeMove() {
+      console.log('move')
+      self.phase = Phase.Move
+    },
+
+    initializeDefend() {
+      console.log('defend')
+    },
+  }))
+
+  .actions((self) => ({
+    endPhase() {
+      switch (self.phase) {
+        case Phase.Recruit:
+          self.initializeMove()
+          break
+
+        case Phase.Move:
+          self.initializeRecruit()
+          break
+      }
+    },
+
     selectPhase(phase: Phase) {
-      self.phase = phase
+      switch (phase) {
+        case Phase.Recruit:
+          self.initializeRecruit()
+          break
+
+        case Phase.Move:
+          self.initializeMove()
+          break
+      }
+    },
+  }))
+
+  .actions((self) => ({
+    // TODO: DEV --remove
+    afterCreate() {
+      self.initializeRecruit()
     },
   }))
 

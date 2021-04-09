@@ -1,10 +1,10 @@
-import { autorun } from 'mobx'
 import { types, Instance, getParent } from 'mobx-state-tree'
+import { autorun } from 'mobx'
 import { Phase, IGameStore } from './index'
 import DistrictModel, { Selected } from './DistrictModel'
 
 const DistrictStore = types
-  .model({
+  .model('DistrictStore', {
     mapId: types.string,
     districts: types.map(DistrictModel),
   })

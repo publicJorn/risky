@@ -8,13 +8,14 @@ const DevSelect = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding: ${(p) => p.theme.spacing05};
 `
 
 const phases = Object.keys(Phase)
 const disabledPhases = [Phase.Wait, Phase.Attack, Phase.Defend] as string[]
 
 function DevPanel(): JSX.Element {
-  const { selectPhase: devSelectPhase, phase: localPhase } = useGameStore()
+  const { selectPhase: devSelectPhase, phase } = useGameStore()
   const { districts } = useDistrictStore()
 
   const handleChange = (evt: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -34,7 +35,7 @@ function DevPanel(): JSX.Element {
       <button onClick={setTroops}>Mock set troops</button>
       <br />
       <label htmlFor="devSelectPhase">Select phase:</label>
-      <select id="devSelectPhase" onChange={handleChange} value={localPhase}>
+      <select id="devSelectPhase" onChange={handleChange} value={phase}>
         {phases.map((phase) => (
           <option key={phase} disabled={disabledPhases.includes(phase)}>
             {phase}

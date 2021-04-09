@@ -16,7 +16,7 @@ export const Display = styled.div`
   justify-content: space-between;
 `
 
-export const ChatArea = styled.aside`
+export const MetaArea = styled.aside`
   width: 15rem;
   background-color: lime;
 `

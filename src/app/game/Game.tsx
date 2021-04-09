@@ -1,11 +1,12 @@
 import { GameContext, useGameStore } from './store'
 import GameMap from './map/Map'
 import Actions from './actions/Actions'
+import Meta from './meta/Meta'
 import {
   Scene,
   Header,
   Display,
-  ChatArea,
+  MetaArea,
   MapArea,
   ActionArea,
 } from './game.styles'
@@ -18,7 +19,9 @@ const Game = (): JSX.Element => {
       <Scene>
         <Header>header</Header>
         <Display>
-          <ChatArea>players turn & chat</ChatArea>
+          <MetaArea>
+            <Meta />
+          </MetaArea>
           <MapArea>
             <GameMap />
           </MapArea>
