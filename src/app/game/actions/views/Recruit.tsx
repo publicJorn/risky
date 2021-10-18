@@ -22,14 +22,17 @@ function Recruit({ district }: Props): JSX.Element | null {
     targetDistrict.current = district
   }, [district])
 
+  // TODO: MP move set functions to store
   const handleTroopsChange = (n: number): void => {
     district!.setTroopsDelta(n)
   }
 
   const handleCommitTroops = (): void => {
-    setTroopsDeltaPool(troopsDeltaPool - district!.troopsDelta)
-    district!.setTroops(district!.troops + district!.troopsDelta)
-    district!.setTroopsDelta(0)
+    if (!district) return
+
+    setTroopsDeltaPool(troopsDeltaPool - district.troopsDelta)
+    district.setTroops(district.troops + district.troopsDelta)
+    district.setTroopsDelta(0)
   }
 
   return (

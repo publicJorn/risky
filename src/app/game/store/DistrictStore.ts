@@ -64,16 +64,16 @@ const DistrictStore = types
         return
       }
 
-      const isCorrectPhase = [Phase.Attack, Phase.Move].includes(
+      const allowMultiSelect = [Phase.Attack, Phase.Move].includes(
         self.parent.phase,
       )
 
       if (
-        isCorrectPhase &&
+        allowMultiSelect &&
         self.primaryDistrict &&
         self.primaryDistrict.id !== id
       ) {
-        self.selectSecondary(id)
+        self.primaryDistrict.borders.includes(id) && self.selectSecondary(id)
         return
       }
 

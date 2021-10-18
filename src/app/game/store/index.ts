@@ -31,31 +31,32 @@ const GameStore = types
   .views((self) => ({}))
 
   .actions((self) => ({
-    setTroopsDeltaPool(n: number) {
-      self.troopsDeltaPool = n
-    },
-
     initializeWait() {
-      console.log('wait')
+      console.log('init phase wait')
     },
 
     initializeRecruit() {
-      console.log('recruit')
+      console.log('init phase recruit')
       self.troopsDeltaPool = 3
       self.phase = Phase.Recruit
     },
 
     initializeAttack() {
-      console.log('attack')
+      console.log('init phase attack')
     },
 
     initializeMove() {
-      console.log('move')
+      console.log('init phase move')
+      self.troopsDeltaPool = 7
       self.phase = Phase.Move
     },
 
     initializeDefend() {
-      console.log('defend')
+      console.log('init phase defend')
+    },
+
+    setTroopsDeltaPool(n: number) {
+      self.troopsDeltaPool = n
     },
   }))
 
@@ -86,7 +87,6 @@ const GameStore = types
   }))
 
   .actions((self) => ({
-    // TODO: DEV --remove
     afterCreate() {
       self.initializeRecruit()
     },
